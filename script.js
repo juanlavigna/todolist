@@ -27,5 +27,36 @@ class Item {
         $item.appendChild(botonEditar);
         $item.appendChild(botonRemover);
         contenedor.appendChild($item)
+
+        botonEditar.addEventListener("click", function(){
+            if($inputItem.disabled){
+                botonEditar.innerHTML = "<i class='fas fa-lock-open'></i>";
+                $inputItem.disabled = false;
+            }else if(!$inputItem.disabled){
+                $inputItem.setAttribute("disabled", "")
+                botonEditar.innerHTML = "<i class='fas fa-lock'></i>";
+            }
+        })
+
+        botonRemover.addEventListener("click", () => {
+            contenedor.removeChild($item)
+        })
     }
 }
+
+function checkInput(){
+    if (input.value == ""){
+        alert("Debe ingresar alguna tarea.")
+    }else{
+        new Item (input.value)
+        input.value = ""
+    }
+}
+
+botonAgregar.addEventListener("click", checkInput)
+
+document.body.addEventListener("keydown", function(e){
+    if(e.key == "Enter"){
+        checkInput()
+    }
+})
